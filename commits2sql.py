@@ -67,8 +67,6 @@ def sqlite3_init():
 
 def main():
     sqlite3_init()
-    # for n, commit in enumerate(changelog_parse("CVSROOT/ChangeLog.45")):
-    # for commit in changelog_parse("CVSROOT/ChangeLog.45"):
     for changelog in changelog_list():
         print(changelog)
         for commit in changelog_parse(changelog):
@@ -77,8 +75,6 @@ def main():
             except TypeError:
                 # commit_parse may return nothing
                 continue
-            # print("-------------")
-            # print(module, commiter, date, log_message, len(log_message))
             sqlite3_feed(module, commiter, date, log_message, len(log_message))
 
 
