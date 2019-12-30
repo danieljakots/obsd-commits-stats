@@ -15,7 +15,15 @@ SQLITE_PATH = "/tmp/commits.sqlite3"
 def changelog_list():
     # limit ourselves to recent commits only, syntax changed and I don't care
     # enough to support everything
-    for changelog in glob.glob("CVSROOT/ChangeLog.[4-5][0-9]"):
+    for changelog in glob.glob("CVSROOT/ChangeLog*"):
+        # quote from ChangeLog.0:
+        # These were attempts at setting up the tree a few days early.
+        # ChangeLog.1 starts the real history of the project.
+        if changelog == "CVSROOT/ChangeLog.0":
+            continue
+        # Format is different so ignore it
+        if changelog == "CVSROOT/ChangeLog.1":
+            continue
         yield changelog
 
 
