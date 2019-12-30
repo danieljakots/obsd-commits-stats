@@ -40,7 +40,11 @@ def commit_parse(commit):
         log_message = commit.split("Log message:")[1]
     except IndexError:
         # it happens when a new directory is added...
-        log_message = commit.split("Log Message:")[1]
+        try:
+            log_message = commit.split("Log Message:")[1]
+        except IndexError:
+            # in CVSROOT/ChangeLog.2, the last commit doesn't have a message
+            return
     return module, commiter, date, log_message.rstrip().lstrip()
 
 
